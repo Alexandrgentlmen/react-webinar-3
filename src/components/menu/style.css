@@ -1,0 +1,16 @@
+/* Контрол с общими действиями */
+.Menu{
+	float: left;
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px;
+  font-size: 18px;
+}
+
+.Menu-link_main {
+	color: #0087E9;
+	width: 74.5%;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 21px;
+}

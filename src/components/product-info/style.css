@@ -1,0 +1,21 @@
+.ProductInfo {
+  transition: background-color 1s;
+  padding-left: 30px
+}
+
+
+
+.ProductInfo-title {
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 21px;
+	margin: 0px;
+  padding: 0px 40px 20px 10px;
+}
+
+.ProductInfo-title_big {
+	font-weight: 700;
+	font-size: 24px;
+	line-height: 28px;
+}
+

@@ -9,7 +9,7 @@ GET http://example.front.ylab.io/api/v1/articles
 GET http://example.front.ylab.io/api/v1/articles?limit=10&skip=20
 
 ###
-# Список с пагинацией и возвратом общего количества и толкьо нужных свойств
+# Список с пагинацией и возвратом общего количества и только нужных свойств
 
 GET http://example.front.ylab.io/api/v1/articles?limit=10&skip=10&fields=items(_id, title, price),count
 
