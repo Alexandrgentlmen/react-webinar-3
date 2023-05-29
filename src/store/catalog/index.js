@@ -1,5 +1,5 @@
-import { codeGenerator } from "../../utils";
-import StoreModule from "../module";
+import { codeGenerator } from '../../utils';
+import StoreModule from '../module';
 
 class Catalog extends StoreModule {
 
@@ -66,44 +66,35 @@ class Catalog extends StoreModule {
 		const response = await fetch(`/api/v1/articles/${_id}`);
 		const responseMadeIn = await fetch(`/api/v1/articles/${_id}?fields=madeIn(title,code)`);
 		const responseCat = await fetch(`/api/v1/articles/${_id}?fields=category(title)`);
-
 		const MadeIn = await responseMadeIn.json();
 		const Cat = await responseCat.json();
-		console.log('loadCurrentProduct MadeIn', MadeIn.result)
-		console.log('loadCurrentProduct Cat', Cat.result)
 		const json = await response.json();
 		const countryTitle = MadeIn.result.madeIn.title;
 		const countryCode = MadeIn.result.madeIn.code;
 		const categoryProduct = Cat.result.category.title;
 		this.setState({
 			...this.getState(),
-			productInfo: { ...json.result, countryTitle: countryTitle, categoryProduct: categoryProduct, countryCode: countryCode }
+			productInfo: {
+				...json.result,
+				countryTitle: countryTitle,
+				categoryProduct: categoryProduct,
+				countryCode: countryCode
+			}
 		}, 'Загружен продукт из АПИ');
 	}
 
 	async load(currentPage, pageSize) {
-		const skipNumber = currentPage * 10;
+		const skipNumber = (currentPage - 1) * 10;
 		const response = await fetch(`/api/v1/articles?limit=${pageSize}&skip=${skipNumber}`);
 		const json = await response.json();
 
 		this.setState({
 			...this.getState(),
-			list: { ...list, ...json.result.items }
-		}, 'Загружены товары из АПИ');
+			list: [...json.result.items],
+		}, 'Загружены товары из АПИ по 10 штук для пагинации');
 	}
-
-	async loadProduct() {
-		const response = await fetch('/api/v1/articles');
-		const json = await response.json();
-		this.setState({
-			...this.getState(),
-			list: json.result.items
-		}, 'Загружены товары из АПИ');
-	}
-
 
 	async loadPages() {
-
 		const response = await fetch('/api/v1/articles?limit=*');
 		const json = await response.json();
 		const allItemsQuant = json.result.items.length;
