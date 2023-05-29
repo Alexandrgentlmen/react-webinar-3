@@ -26,6 +26,10 @@ function Main() {
 	}));
 
 	useEffect(() => {
+		store.actions.catalog.loadProduct();
+	}, []);
+
+	useEffect(() => {
 		store.actions.catalog.loadPages();
 		store.actions.catalog.load(select.currentPage, select.pageSize);
 	}, [select.currentPage]);

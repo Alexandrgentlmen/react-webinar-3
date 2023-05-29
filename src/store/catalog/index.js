@@ -88,9 +88,19 @@ class Catalog extends StoreModule {
 
 		this.setState({
 			...this.getState(),
+			list: { ...list, ...json.result.items }
+		}, 'Загружены товары из АПИ');
+	}
+
+	async loadProduct() {
+		const response = await fetch('/api/v1/articles');
+		const json = await response.json();
+		this.setState({
+			...this.getState(),
 			list: json.result.items
 		}, 'Загружены товары из АПИ');
 	}
+
 
 	async loadPages() {
 
@@ -103,7 +113,7 @@ class Catalog extends StoreModule {
 			pagination: {
 				...this.getState().pagination,
 				quantityItems: allItemsQuant,
-				quantityPages: Math.ceil(allItemsQuant / this.getState().pagination.pageSize) - 1,
+				quantityPages: Math.ceil(allItemsQuant / this.getState().pagination.pageSize),
 				loading: true,
 			}
 		}, 'Загружены из АПИ все товары');
