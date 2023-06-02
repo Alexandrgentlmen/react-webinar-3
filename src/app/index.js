@@ -11,9 +11,9 @@ function App() {
 	return (
 
 		<Routes>
-			<Route path="/" element={<Main />} />
-			<Route path="/product/:id" element={<ProductPage />} />
-			<Route path="*" element={<NotFound />} />
+			<Route path='' element={<Main />} />
+			<Route path='/product/:id' element={<ProductPage />} />
+			<Route path='*' element={<NotFound />} />
 		</Routes>
 
 	);

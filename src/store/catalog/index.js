@@ -48,19 +48,6 @@ class Catalog extends StoreModule {
 	* Добавление товара в корзину
 	* @param _id Код товара
 	*/
-	// http://example.front.ylab.io/api/v1/articles/646b6e1fe1626c0bd8518064?fields=*,madeIn(title,code),category(title)
-	// async loadCategoryAndCountry(_id) {
-	// 	const responseMadeIn = await fetch(`/api/v1/articles/${_id}?fields=madeIn(title,code)`);
-	// 	const responseCat = await fetch(`/api/v1/articles/${_id}?fields=category(title)`);
-
-	// 	const MadeIn = await responseMadeIn.json();
-	// 	const Cat = await responseCat.json();
-
-	// 	this.setState({
-	// 		...this.getState(),
-	// 		productInfo: { ...json.result }
-	// 	}, 'Загружен продукт из АПИ');
-	// }
 
 	async loadCurrentProduct(_id) {
 		const response = await fetch(`/api/v1/articles/${_id}`);
