@@ -1,3 +1,4 @@
+import { parseLevel, parseTree } from "../../utils";
 import StoreModule from "../module";
 
 /**
@@ -12,11 +13,13 @@ class CatalogState extends StoreModule {
 	initState() {
 		return {
 			list: [],
+			allCategory: [],
 			params: {
 				page: 1,
 				limit: 10,
 				sort: 'order',
-				query: ''
+				query: '',
+				category: '',
 			},
 			count: 0,
 			waiting: false
@@ -36,6 +39,7 @@ class CatalogState extends StoreModule {
 		if (urlParams.has('limit')) validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
 		if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
 		if (urlParams.has('query')) validParams.query = urlParams.get('query');
+		if (urlParams.has('category')) validParams.category = urlParams.get('category');
 		await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
 	}
 
@@ -81,7 +85,8 @@ class CatalogState extends StoreModule {
 			skip: (params.page - 1) * params.limit,
 			fields: 'items(*),count',
 			sort: params.sort,
-			'search[query]': params.query
+			'search[query]': params.query,
+			'search[category]': params.category
 		};
 
 		const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
@@ -92,6 +97,38 @@ class CatalogState extends StoreModule {
 			count: json.result.count,
 			waiting: false
 		}, 'Загружен список товаров из АПИ с apiParams');
+	}
+
+	async loadAllProducts() {
+		let flatList = [];
+
+		try {
+			const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
+			const json = await response.json();
+			flatList = [...json.result.items]
+		}
+		catch (error) {
+			console.error('Ошибка ' + error.name + ":" + error.message + "\n" + error.stack);
+		}
+
+		const treeList = flatList.map((flatNode) => ({
+			...flatNode,
+			children: [],
+		}));
+
+		const myCategoryArr = parseLevel(treeList);
+		const allCategory = myCategoryArr.reduce((acc, item) => {
+
+			return [...acc, ...parseTree(item)]
+		}, []);
+
+		this.setState({
+			...this.getState(),
+			allCategory: [
+				{ id: '0', title: 'Все', parent: null },
+				...allCategory,
+			],
+		}, 'Установлены уровни в селекте каталога');
 	}
 }
 
