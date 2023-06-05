@@ -19,7 +19,7 @@ class CatalogState extends StoreModule {
 				limit: 10,
 				sort: 'order',
 				query: '',
-				category: '',
+				category: '0',
 			},
 			count: 0,
 			waiting: false
@@ -86,8 +86,10 @@ class CatalogState extends StoreModule {
 			fields: 'items(*),count',
 			sort: params.sort,
 			'search[query]': params.query,
-			'search[category]': params.category
+			'search[category]': params.category,
 		};
+		if (params.category === '0') { delete apiParams['search[category]'] }
+
 
 		const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
 		const json = await response.json();
@@ -101,7 +103,6 @@ class CatalogState extends StoreModule {
 
 	async loadAllProducts() {
 		let flatList = [];
-
 		try {
 			const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
 			const json = await response.json();
