@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -16,10 +16,10 @@ function Registration() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const fromPage = location.state?.from?.pathname || '/';
-
-
+	console.log('Registration Page', fromPage)
 	const select = useSelector(state => ({
 		error: state.profile.error.message,
+		isAuth: state.profile.isAuth,
 	}));
 
 	const { t } = useTranslate();
@@ -33,6 +33,8 @@ function Registration() {
 		resetError: useCallback(() => store.actions.profile.resetError(), [store]),
 	}
 
+	useEffect(() => { select.isAuth && navigate('/profile', { replace: true }) }, [select.isAuth])
+
 	return (
 		<PageLayout>
 			<ProfileNavigation />
@@ -40,7 +42,12 @@ function Registration() {
 				<LocaleSelect />
 			</Head>
 			<Navigation />
-			<Form getToken={callbacks.getToken} t={t} resetError={callbacks.resetError} error={select.error} />
+			<Form
+				getToken={callbacks.getToken}
+				t={t}
+				resetError={callbacks.resetError}
+				error={select.error}
+			/>
 		</PageLayout>
 	);
 }

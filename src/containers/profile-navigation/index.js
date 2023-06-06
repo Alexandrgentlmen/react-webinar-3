@@ -9,35 +9,31 @@ import Spinner from "../../components/spinner";
 import useInit from "../../hooks/use-init";
 
 function ProfileNavigation() {
+	const { t } = useTranslate();
 	const store = useStore();
-	const token = localStorage.getItem('token');
+
 	useInit(() => {
-		// надо написать загрузку профиля при входе на эту сраницу 
 		store.actions.profile.loadProfile();
 	}, []);
 	const select = useSelector(state => ({
 		waiting: state.profile.waiting,
-		user: state.profile.profileInfo
+		user: state.profile.profileInfo,
+		isAuth: state.profile.isAuth,
 	}));
-	console.log('select.user', select.user.profile);
+
 	const callbacks = {
-		// разлогинится Token
 		getLogout: useCallback(() => store.actions.profile.logout(), [store]),
-
 	};
-
-	const { t } = useTranslate();
 
 	return (
 
 		<SideLayout side='end'>
 			<Spinner active={select.waiting}>
-				{token && <NavLink to='/profile'>{select.user.name}</NavLink>}
-				<LoginBtn checkin={token} getLogout={callbacks.getLogout} t={t} />
+				{select.isAuth && <NavLink to='/profile'>{select.user?.profile?.name || select.user?.name}</NavLink>}
+				<LoginBtn checkin={select.isAuth} getLogout={callbacks.getLogout} t={t} />
 			</Spinner>
 		</SideLayout>
 	)
 }
 
 export default memo(ProfileNavigation);
-

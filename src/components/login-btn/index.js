@@ -5,11 +5,12 @@ import './style.css';
 
 function LoginBtn({ checkin, getLogout, t }) {
 	const navigate = useNavigate();
+
 	return (
 		<div className='LoginBtn'>
 			{!checkin ?
 				<button onClick={() => navigate('/login')}>{t('button.enter')}</button> :
-				<button onClick={() => getLogout()}>{t('button.out')}</button>
+				<button onClick={() => { getLogout() && localStorage.removeItem('token') }}>{t('button.out')}</button>
 			}
 		</div>
 	)
@@ -17,7 +18,7 @@ function LoginBtn({ checkin, getLogout, t }) {
 
 LoginBtn.propTypes = {
 	getLogout: PropTypes.func,
-	checkin: PropTypes.string
+	checkin: PropTypes.bool
 };
 
 LoginBtn.defaultProps = {

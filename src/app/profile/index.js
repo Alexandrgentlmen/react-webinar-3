@@ -16,7 +16,6 @@ function Profile() {
 	const store = useStore();
 	const { t } = useTranslate();
 	useInit(() => {
-		// надо написать загрузку профиля при входе на эту сраницу 
 		store.actions.profile.loadProfile();
 	}, []);
 
@@ -24,7 +23,6 @@ function Profile() {
 		userInfo: state.profile.profileInfo,
 		waiting: state.profile.waiting,
 	}));
-	console.log('select.userInfo', select.userInfo)
 	return (
 		<PageLayout>
 			<ProfileNavigation />

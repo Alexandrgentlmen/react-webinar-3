@@ -15,7 +15,8 @@ class ProfileState extends StoreModule {
 			userID: null,
 			userToken: null,
 			userEmail: null,
-			waiting: false, // признак ожидания загрузки
+			isAuth: false,
+			waiting: false,
 			profileInfo: {},
 			error: {
 				message: '',
@@ -29,25 +30,22 @@ class ProfileState extends StoreModule {
 			userID: null,
 			userToken: null,
 			userEmail: null,
+			isAuth: false,
 			waiting: true,
 			profileInfo: {},
 			error: {
 				message: '',
 			}
 		});
-
 		try {
 			await fetch('/api/v1/users/sign', {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',
-					'X-Token:': localStorage.getItem('token')
+					'X-Token': localStorage.getItem('token')
 				}
 			});
-			// установим в localStorage полученный Token
-			if (response.status === 200) {
-				localStorage.removeItem('token');
-			}
+
 		} catch (error) {
 			console.error('Ошибка ' + error.name + ":" + error.message + "\n" + error.stack);
 			// Ошибка при загрузке
@@ -56,21 +54,28 @@ class ProfileState extends StoreModule {
 				userID: null,
 				userToken: null,
 				userEmail: null,
+				isAuth: false,
 				waiting: false,
 				profileInfo: {},
 				error: {
 					message: '',
 				}
 			});
+		} finally {
+			this.setState({
+				...this.getState(),
+				waiting: false,
+			});
 		}
 	}
 
 	async getTokenUser(data) {
-		// Сброс текущего профиля и установка признака ожидания загрузки
+		// Сброс текущего профиля 
 		this.setState({
 			userID: null,
 			userToken: null,
 			userEmail: null,
+			isAuth: false,
 			waiting: true,
 			profileInfo: {},
 			error: {
@@ -87,7 +92,6 @@ class ProfileState extends StoreModule {
 			});
 			const json = await response.json();
 
-			// установим в localStorage полученный Token
 			if (response.status === 200) {
 				localStorage.setItem('token', json.result.token);
 			}
@@ -96,8 +100,9 @@ class ProfileState extends StoreModule {
 				...this.getState(),
 				userID: json.result.user._id,
 				userEmail: json.result.user.email,
-				profileInfo: json.result.user.profile,
+				profileInfo: json.result.user,
 				userToken: json.result.token,
+				isAuth: true,
 				waiting: false
 			}, 'Загружен Token из АПИ');
 		}
@@ -109,6 +114,7 @@ class ProfileState extends StoreModule {
 				userID: null,
 				userToken: null,
 				userEmail: null,
+				isAuth: false,
 				waiting: false,
 				profileInfo: {},
 				error: { message: error.message.toString() }
@@ -119,9 +125,7 @@ class ProfileState extends StoreModule {
 	async loadProfile() {
 		// Сброс текущего профиля и установка признака ожидания загрузки
 		this.setState({
-			userID: null,
-			userToken: null,
-			userEmail: null,
+			...this.getState(),
 			waiting: true,
 			profileInfo: {},
 			error: {
@@ -150,9 +154,7 @@ class ProfileState extends StoreModule {
 			// Ошибка при загрузке
 			// @todo В стейт можно положить информацию об ошибке
 			this.setState({
-				userID: null,
-				userToken: null,
-				userEmail: null,
+				...this.getState(),
 				waiting: false,
 				profileInfo: {},
 				error: { typeError: error.message.toString() }

@@ -4,21 +4,22 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function UserCard({ userInfo, t }) {
+	console.log(userInfo)
 	const cn = bem('UserCard');
 	return (
 		<div className={cn()}>
 			<div className={cn('description')}>{t('profile.title')}</div>
 			<div className={cn('prop')}>
 				<div className={cn('label')}>{t('profile.name')}:</div>
-				<div className={cn('value')}>{userInfo.profile.name}</div>
+				<div className={cn('value')}>{userInfo.profile?.name}</div>
 			</div>
 			<div className={cn('prop')}>
 				<div className={cn('label')}>{t('profile.telefone')}:</div>
-				<div className={cn('value')}>{userInfo.profile.phone}</div>
+				<div className={cn('value')}>{userInfo.profile?.phone}</div>
 			</div>
 			<div className={cn('prop')}>
 				<div className={cn('label')}>email:</div>
-				<div className={cn('value')}>{userInfo.email}</div>
+				<div className={cn('value')}>{userInfo?.email}</div>
 			</div>
 		</div>
 	);

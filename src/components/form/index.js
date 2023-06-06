@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
-import './style.css'
+import './style.css';
 
 const Form = ({ getToken, resetError, error, t }) => {
 
-	// Внутренний стейт для быстрого отображения ввода
 	const [login, setLogin] = useState('');
 	const [password, setPassword] = useState('');
-	// Обработчик изменений в поле
+
 	const onChangeLogin = (event) => {
 		setLogin(event.target.value);
 	}
