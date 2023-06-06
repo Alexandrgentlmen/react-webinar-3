@@ -4,10 +4,15 @@
 	align-items: flex-start;
 	max-width: 200px;
 	padding: 0 20px;
+	padding-top: 17px;
 }
 
+.Form h2 {
+	margin-bottom: 19px;
+} 
+
 .Form-input {
-	width: 100%;
+	width: 98%;
 	margin-bottom: 20px;
 	line-height: 20px;
 	font-size: 16px;
@@ -16,4 +21,8 @@
 .Form-error {
 	margin: 0 0 20px;
 	color: red;
+}
+
+.Form-button {
+	padding: 2px 7px 2px 7px;
 }

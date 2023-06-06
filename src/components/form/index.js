@@ -40,7 +40,7 @@ const Form = ({ getToken, resetError, error, t }) => {
 			<label htmlFor='pass'>{t('form.password')}</label>
 			<input className={cn('input')} type='password' value={password} onChange={onChangePassword} id='password' />
 			{error && <p className={cn('error')}>{error}</p>}
-			<button className={cn('button')} onClick={onSubmitForm}>{t('form.enter')}</button>
+			<button className={cn('button')} onClick={onSubmitForm}>{t('buttonform.enter')}</button>
 		</form>
 	)
 }

@@ -21,6 +21,7 @@
 	"form.login": "Логин",
 	"form.password": "Пароль",
 	"button.enter": "Вход",
+	"buttonform.enter": "Войти",
 	"button.out": "Выход",
 	"profile.title": "Профиль",
 	"profile.name": "Имя",

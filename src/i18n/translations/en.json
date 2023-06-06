@@ -20,6 +20,7 @@
 	"form.password": "Password",
 	"button.enter": "Login",
 	"button.out": "Out",
+	"buttonform.enter": "Login",
 	"profile.title": "Profile",
 	"profile.name": "Name",
 	"profile.telefone": "Phone"
