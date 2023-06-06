@@ -1,0 +1,10 @@
+.LoginBtn{	
+  padding: 10px 20px;
+	background-color: #fff;
+	display: inline-block;
+}
+
+.active {
+	color: #0087E9;
+}
+

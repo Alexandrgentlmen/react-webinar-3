@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useMemo } from "react";
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -7,20 +7,13 @@ import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
 
 function CatalogFilter() {
-	const [optionsCategory, setOptionsCategory] = useState('');
-	// загрузим все категории для category array
-	useEffect(() => {
-		setOptionsCategory(store.actions.catalog.loadAllProducts());
-		console.log(optionsCategory);
-	}, [])
-
 	const store = useStore();
 
 	const select = useSelector(state => ({
 		sort: state.catalog.params.sort,
 		query: state.catalog.params.query,
-		allCategory: state.catalog.allCategory,
 		category: state.catalog.params.category,
+		allCategory: state.categories.allCategory,
 	}));
 
 	const callbacks = {

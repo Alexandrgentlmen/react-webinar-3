@@ -1,4 +1,3 @@
-import { parseLevel, parseTree } from "../../utils";
 import StoreModule from "../module";
 
 /**
@@ -13,7 +12,6 @@ class CatalogState extends StoreModule {
 	initState() {
 		return {
 			list: [],
-			allCategory: [],
 			params: {
 				page: 1,
 				limit: 10,
@@ -101,36 +99,6 @@ class CatalogState extends StoreModule {
 		}, 'Загружен список товаров из АПИ с apiParams');
 	}
 
-	async loadAllProducts() {
-		let flatList = [];
-		try {
-			const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
-			const json = await response.json();
-			flatList = [...json.result.items]
-		}
-		catch (error) {
-			console.error('Ошибка ' + error.name + ":" + error.message + "\n" + error.stack);
-		}
-
-		const treeList = flatList.map((flatNode) => ({
-			...flatNode,
-			children: [],
-		}));
-
-		const myCategoryArr = parseLevel(treeList);
-		const allCategory = myCategoryArr.reduce((acc, item) => {
-
-			return [...acc, ...parseTree(item)]
-		}, []);
-
-		this.setState({
-			...this.getState(),
-			allCategory: [
-				{ id: '0', title: 'Все', parent: null },
-				...allCategory,
-			],
-		}, 'Установлены уровни в селекте каталога');
-	}
 }
 
 export default CatalogState;

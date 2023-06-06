@@ -14,6 +14,7 @@
 
 .SideLayout_side_end {
   justify-content: flex-end;
+	
 }
 
 .SideLayout_side_between {
@@ -30,4 +31,7 @@
 
 .SideLayout-item {
   margin: 0 5px;
+}
+.SideLayout-item a {
+	color: #0087E9;
 }

@@ -1,18 +1,26 @@
 {
-  "title": "Shop",
-  "menu.main": "Main",
-  "basket.title": "Cart",
-  "basket.open": "Open",
-  "basket.close": "Close",
-  "basket.inBasket": "In cart",
-  "basket.empty": "empty",
-  "basket.total": "Total",
-  "basket.unit": "pcs",
-  "basket.delete": "Delete",
-  "article.add": "Add",
-  "filter.reset": "Reset",
-  "basket.articles": {
-    "one": "article",
-    "other": "articles"
-  }
+	"title": "Shop",
+	"menu.main": "Main",
+	"basket.title": "Cart",
+	"basket.open": "Open",
+	"basket.close": "Close",
+	"basket.inBasket": "In cart",
+	"basket.empty": "empty",
+	"basket.total": "Total",
+	"basket.unit": "pcs",
+	"basket.delete": "Delete",
+	"article.add": "Add",
+	"filter.reset": "Reset",
+	"basket.articles": {
+		"one": "article",
+		"other": "articles"
+	},
+	"form.enter": "Login",
+	"form.login": "Login",
+	"form.password": "Password",
+	"button.enter": "Login",
+	"button.out": "Out",
+	"profile.title": "Profile",
+	"profile.name": "Name",
+	"profile.telefone": "Phone"
 }
