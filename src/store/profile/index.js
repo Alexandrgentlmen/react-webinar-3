@@ -141,13 +141,21 @@ class ProfileState extends StoreModule {
 				}
 			});
 			const json = await response.json();
-			console.log('загружаем данные на страницу профиля', json.result);
-
-			this.setState({
-				...this.getState(),
-				profileInfo: json.result,
-				waiting: false
-			}, 'Загружен Profile из АПИ');
+			console.log('загружаем данные на страницу профиля', response);
+			if (response.status === 200) {
+				this.setState({
+					...this.getState(),
+					profileInfo: json.result,
+					isAuth: true,
+					waiting: false
+				}, 'Загружен Profile из АПИ');
+			} else {
+				this.setState({
+					...this.getState(),
+					isAuth: false,
+					waiting: false
+				}, 'Нету доступа к Profile из АПИ');
+			}
 		}
 		catch (error) {
 			console.error('Ошибка ' + error.name + ":" + error.message + "\n" + error.stack);
@@ -155,6 +163,7 @@ class ProfileState extends StoreModule {
 			// @todo В стейт можно положить информацию об ошибке
 			this.setState({
 				...this.getState(),
+				isAuth: false,
 				waiting: false,
 				profileInfo: {},
 				error: { typeError: error.message.toString() }

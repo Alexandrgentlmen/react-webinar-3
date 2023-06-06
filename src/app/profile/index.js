@@ -5,9 +5,9 @@ import useInit from "../../hooks/use-init";
 import useTranslate from '../../hooks/use-translate';
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
-import Navigation from "../../containers/navigation";
 import Spinner from "../../components/spinner";
 import UserCard from "../../components/user-card";
+import Navigation from "../../containers/navigation";
 import LocaleSelect from "../../containers/locale-select";
 import ProfileNavigation from '../../containers/profile-navigation';
 

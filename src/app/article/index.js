@@ -14,8 +14,7 @@ import LocaleSelect from "../../containers/locale-select";
 
 function Article() {
 	const store = useStore();
-
-	// Параметры из пути /articles/:id
+	const { t } = useTranslate();
 	const params = useParams();
 
 	useInit(() => {
@@ -27,8 +26,6 @@ function Article() {
 		waiting: state.article.waiting,
 		userToken: state.profile.userToken,
 	}));
-
-	const { t } = useTranslate();
 
 	const callbacks = {
 		// Добавление в корзину

@@ -4,7 +4,6 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
 function UserCard({ userInfo, t }) {
-	console.log(userInfo)
 	const cn = bem('UserCard');
 	return (
 		<div className={cn()}>

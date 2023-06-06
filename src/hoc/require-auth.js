@@ -4,9 +4,9 @@ import useSelector from '../hooks/use-selector';
 const RequireAuth = ({ children }) => {
 	const location = useLocation();
 	const select = useSelector(state => ({
-		token: state.profile.userToken,
+		isAuth: state.profile.isAuth,
 	}));
-	if (!select.token) {
+	if (!select.isAuth) {
 		return <Navigate to={'/login'} state={{ from: location }} />
 	}
 

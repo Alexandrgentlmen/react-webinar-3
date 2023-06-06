@@ -11,17 +11,12 @@ import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 
 function Main() {
-
 	const store = useStore();
-
+	const { t } = useTranslate();
 	useInit(() => {
-		// загрузим все товары
 		store.actions.catalog.initParams();
-		// загрузим все категории для category array
 		store.actions.categories.loadAllCategory();
 	}, [], true);
-
-	const { t } = useTranslate();
 
 	return (
 		<PageLayout>

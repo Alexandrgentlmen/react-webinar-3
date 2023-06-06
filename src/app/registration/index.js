@@ -12,17 +12,15 @@ import ProfileNavigation from '../../containers/profile-navigation';
 
 function Registration() {
 	const store = useStore();
-
+	const { t } = useTranslate();
 	const navigate = useNavigate();
 	const location = useLocation();
 	const fromPage = location.state?.from?.pathname || '/';
-	console.log('Registration Page', fromPage)
 	const select = useSelector(state => ({
 		error: state.profile.error.message,
 		isAuth: state.profile.isAuth,
 	}));
 
-	const { t } = useTranslate();
 
 	const callbacks = {
 
@@ -33,7 +31,7 @@ function Registration() {
 		resetError: useCallback(() => store.actions.profile.resetError(), [store]),
 	}
 
-	useEffect(() => { select.isAuth && navigate('/profile', { replace: true }) }, [select.isAuth])
+	useEffect(() => { select.isAuth && navigate(fromPage, { replace: true }) }, [select.isAuth])
 
 	return (
 		<PageLayout>
