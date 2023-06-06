@@ -1,4 +1,6 @@
 .Input{
+	min-width: 300px;
+	line-height: 18px; 
   font-size: 16px;
   padding: 2px;
 }

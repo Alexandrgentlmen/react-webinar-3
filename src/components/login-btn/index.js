@@ -22,7 +22,8 @@ LoginBtn.propTypes = {
 };
 
 LoginBtn.defaultProps = {
-	getToken: () => { }
+	getToken: () => { },
+	t: (text) => text,
 }
 
 export default memo(LoginBtn);

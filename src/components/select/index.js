@@ -16,9 +16,9 @@ function Select(props) {
 					value={item.value ? item.value : item.id}>
 					{item.level == null && item.title}
 					{item.level == 0 && item.title}
-					{item.level == 1 && '-' + item.title}
-					{item.level == 2 && '--' + item.title}
-					{item.level == 3 && '---' + item.title}
+					{item.level == 1 && '- ' + item.title}
+					{item.level == 2 && '- - ' + item.title}
+					{item.level == 3 && '- - - ' + item.title}
 				</option>
 			))
 			}
